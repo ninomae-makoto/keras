@@ -179,6 +179,93 @@ plt.imshow(x_test2[data_index], cmap =plt.cm.gray_r)
 plt.show()
 ```
 
+## 解説
+
+### 処理の流れ
+
+学習データを用意。1次元配列へ変換する。
+モデルを作成する。
+データセットとモデルを用いて学習する。
+
+### 前処理
+
+Keras(TensorFlow)で使用できるように、1次元配列に変換して値を0から1の間に変換する必要がある。
+ほぼ共通処理。
+
+``` python
+if K.image_data_format() == 'channels_first':
+    x_train = x_train.reshape(x_train.shape[0], 1, img_rows, img_cols)
+    x_test = x_test.reshape(x_test.shape[0], 1, img_rows, img_cols)
+    input_shape = (1, img_rows, img_cols)
+else:
+    x_train = x_train.reshape(x_train.shape[0], img_rows, img_cols, 1)
+    x_test = x_test.reshape(x_test.shape[0], img_rows, img_cols, 1)
+    input_shape = (img_rows, img_cols, 1)
+
+## 画素を0~1の範囲に正規化
+x_train = x_train.astype('float32')
+x_test = x_test.astype('float32')
+x_train /= 255
+x_test /= 255
+print('x_train shape:', x_train.shape)
+print(x_train.shape[0], 'train samples')
+print(x_test.shape[0], 'test samples')
+
+convert class vectors to binary class matrices
+y_train = keras.utils.to_categorical(y_train, num_classes)
+y_test = keras.utils.to_categorical(y_test, num_classes)
+```
+
+### モデルの作成
+
+以下はcnn(畳み込みニューラルネットワーク)
+
+
+``` python
+model = Sequential()
+model.add(Conv2D(32, kernel_size=(3, 3),
+                 activation='relu',
+                 input_shape=input_shape))
+model.add(Conv2D(64, (3, 3), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Dropout(0.25))
+model.add(Flatten())
+model.add(Dense(128, activation='relu'))
+model.add(Dropout(0.5))
+model.add(Dense(num_classes, activation='softmax'))
+
+##　学習のためのモデルを設定
+model.compile(loss=keras.losses.categorical_crossentropy,
+              optimizer=keras.optimizers.Adadelta(),
+              metrics=['accuracy'])
+```
+
+addでレイヤー(層)積み重ねる。
+compileで学習方法を定義できる(マルチクラス分類問題、2値分類問題、平均二乗誤差など)
+意味はあまりわかっていない。
+
+### model.fit
+
+学習をおこなう。
+
+``` python
+model.fit(x_train, y_train,
+          batch_size=batch_size,
+          epochs=epochs,
+          verbose=1,
+          validation_data=(x_test, y_test))
+```
+
+x_train: 訓練データ
+y_train: 教師データ
+batch_size: 勾配更新毎のサンプル数
+epochs: 学習回数
+verbose: 進行状況の表示モード
+
+
+https://keras.io/ja/models/model/#fit
+
+
 今回のソースコードはGitHubに上げている。  
 Jupyterでそのまま開けるはず。  
 
