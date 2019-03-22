@@ -140,13 +140,15 @@ print('Test loss:', score[0])
 print('Test accuracy:', score[1])
 ```
 
-MacBook Pro (13-inch, 2016, Four Thunderbolt 3 Ports)
-プロセッサ 2.9 GHz Intel Core i5
-メモリ 8 GB 2133 MHz LPDDR3
-グラフィックス Intel Iris Graphics 550 1536 MB
+モデルを作成より上は前処理でほぼ共通になる。  
 
-で2分 * 6 で結構かかる。
-元は12だったが6を境にあまり変わっていないようなので変更した。
+MacBook Pro (13-inch, 2016, Four Thunderbolt 3 Ports)  
+プロセッサ 2.9 GHz Intel Core i5  
+メモリ 8 GB 2133 MHz LPDDR3  
+グラフィックス Intel Iris Graphics 550 1536 MB  
+
+で2分 * 6 で結構かかる。  
+元は12だったが6を境にあまり変わっていないようなので変更した。  
 
 ### 学習データを保存する
 
