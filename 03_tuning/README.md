@@ -86,7 +86,7 @@ https://keras.io/ja/preprocessing/image/
 img_path = '../img/6.png'
 img = load_img(img_path, color_mode = "grayscale", target_size=(28, 28)) #入力画像のサイズ
 x = img_to_array(img) # 画像データをnumpy.arrayへ変換
-# なぜか逆になっている
+# 元が黒背景白文字なので反転している
 x = 255 - x
 x = np.expand_dims(x, axis=0)
 x = x.astype('uint8')
@@ -111,7 +111,7 @@ img = load_img(img_path, color_mode = "grayscale", target_size=(36, 36)) #入力
 x = img_to_array(img) # 画像データをnumpy.arrayへ変換
 # 上下左右4pxトリム
 x = x[4:32, 4:32]
-# なぜか逆になっている
+# 元が黒背景白文字なので反転している
 x = 255 - x
 x = np.expand_dims(x, axis=0)
 x = x.astype('uint8')
