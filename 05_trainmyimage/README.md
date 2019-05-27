@@ -10,7 +10,7 @@
 https://www.google.com/search?q=%E3%82%8A%E3%82%93%E3%81%94&tbm=isch 　
 https://www.google.com/search?q=orange&tbm=isch  
 
-訓練用20毎程度、テスト用5毎程度 それぞれ用意する。画像が被らないように注意。  
+訓練用20枚程度、テスト用5枚程度 それぞれ用意する。画像が被らないように注意。  
 以下に配置。  
 data/test/apple  　
 data/test/orange 
